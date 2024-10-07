@@ -1,0 +1,15 @@
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.GeneratedMSBuildEditorConfig.editorconfig
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.AssemblyInfoInputs.cache
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.AssemblyInfo.cs
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.csproj.CoreCompileInputs.cache
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.sourcelink.json
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\bin\Debug\net8.0\m01.exe
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\bin\Debug\net8.0\m01.deps.json
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\bin\Debug\net8.0\m01.runtimeconfig.json
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\bin\Debug\net8.0\m01.dll
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\bin\Debug\net8.0\m01.pdb
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.dll
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\refint\m01.dll
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.pdb
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\m01.genruntimeconfig.cache
+C:\EducacionIT\programacion-web-net-core-815237\capacitacion\m01\obj\Debug\net8.0\ref\m01.dll

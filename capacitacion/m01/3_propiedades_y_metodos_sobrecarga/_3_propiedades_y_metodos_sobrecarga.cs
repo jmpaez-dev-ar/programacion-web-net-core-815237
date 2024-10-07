@@ -116,7 +116,18 @@
                 public string Puesto { get; set; }
                 public double Salario { get; set; }
 
-                public void Saludar()
+                public Vendedor()
+                {
+                    
+                }
+
+				public Vendedor(string nombre, string apellido)
+				{
+					Nombre = nombre;
+					Apellido = apellido;
+				}
+
+				public void Saludar()
                 {
                     Console.WriteLine("Hola, soy " + Nombre + " " + Apellido + " y tengo " + Edad + " años.");
                 }
@@ -127,9 +138,70 @@
                 }
             }
 
-            // Sobrecarga de métodos:
-            // La sobrecarga de métodos es la capacidad de definir varios métodos con el mismo nombre en una clase, siempre y cuando tengan firmas diferentes. Esto permite que los métodos realicen tareas similares con diferentes tipos de datos.
+			// Sobrecarga de métodos:
+			// La sobrecarga de métodos es la capacidad de definir varios métodos con el mismo nombre en una clase, siempre y cuando tengan firmas diferentes. Esto permite que los métodos realicen tareas similares con diferentes tipos de datos.
 
-        }
-    }
+
+			// CONSTRUCTORES:
+			// Los constructores son métodos especiales que se utilizan para inicializar una instancia de una clase. Los constructores pueden tener parámetros y pueden ser públicos, protegidos, privados o internos. Un constructor público es accesible desde cualquier parte del código. Un constructor protegido es accesible desde la clase que lo define y desde las clases derivadas. Un constructor privado es accesible solo desde la clase que lo define. Un constructor interno es accesible solo desde el ensamblado que lo define.
+
+			public class ProductoInstancia
+			{
+				public string Nombre { get; set; }
+				public double Precio { get; set; }
+				public string Categoria { get; set; }
+
+				public ProductoInstancia()
+				{
+					Nombre = "Producto";
+					Precio = 0.0;
+					Categoria = "Sin categoría";
+				}
+
+				public ProductoInstancia(string nombre, double precio, string categoria)
+				{
+					Nombre = nombre;
+					Precio = precio;
+					Categoria = categoria;
+				}
+
+                public void DemoConstructor() {
+					ProductoInstancia producto1 = new ProductoInstancia();
+					ProductoInstancia producto2 = new ProductoInstancia("Producto 2", 100.0, "Categoría 2");
+				}
+			}
+
+
+			// ToString():
+			// El método ToString es un método que se utiliza para devolver una representación en forma de cadena de un objeto. El método ToString se puede sobrecargar para devolver diferentes representaciones de un objeto según el contexto.
+
+			public class ProductoToString
+			{
+				public string Nombre { get; set; }
+				public double Precio { get; set; }
+				public string Categoria { get; set; }
+
+				public ProductoToString()
+				{
+					Nombre = "Producto";
+					Precio = 0.0;
+					Categoria = "Sin categoría";
+				}
+
+				public ProductoToString(string nombre, double precio, string categoria)
+				{
+					Nombre = nombre;
+					Precio = precio;
+					Categoria = categoria;
+				}
+
+				public override string ToString()
+				{
+					return Nombre + " - " + Precio + " - " + Categoria;
+				}
+			}
+
+
+		}
+	}
 }

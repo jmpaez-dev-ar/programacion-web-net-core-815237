@@ -148,12 +148,13 @@
             }
         }
 
-        public class SuperVendedor: Vendedor
-        {
-            public string Area { get; set; }
-        }
+		// Clase derivada que hereda de una clase sellada:
+		//public class SuperVendedor: Vendedor
+		//{
+		//    public string Area { get; set; }
+		//}
 
-        public void demo2()
+		public void demo2()
         {
             // PersonaAbstracta persona = new PersonaAbstracta(); // Error: No se puede instanciar una clase abstracta
 
