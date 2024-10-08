@@ -1,0 +1,54 @@
+﻿
+@{
+	ViewData["Title"] = "Página principal";
+	Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>@ViewData["Title"]</title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		th, td {
+			padding: 5px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>@ViewData["Title"]</h1>
+	<p>Fecha: @ViewData["Date"]</p>
+	<p>@ViewData["MonthHalf"]</p>
+	<h2>Lista de Cursos:</h2>
+
+	<ul>
+		@foreach (var course in ViewData["Cursos"] as string[])
+		{
+			<li>@course</li>
+		}
+	</ul>
+
+	<p>Nombre: @ViewBag.Nombre  Apellido: @TempData["Apellido"]</p>
+
+	<h2>Tabla de Multiplicación</h2>
+	<table>
+		@for (int i = 1; i <= 10; i++)
+		{
+			<tr>
+				@for (int j = 1; j <= 10; j++)
+				{
+					<td>@i * @j = @(i * j)</td>
+				}
+			</tr>
+		}
+	</table>
+
+</body>
+</html> 
