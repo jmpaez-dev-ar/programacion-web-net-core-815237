@@ -43,23 +43,27 @@ namespace GestionComercial.Web.Controllers
         // POST: ProductosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Producto producto)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            if (ModelState.IsValid) {
+				try
+				{
+					_repositorio.Crear(producto);
+					return RedirectToAction(nameof(Index));
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError(string.Empty, $"Error al crear el Producto: {ex.Message}");
+				}
+			}
+            return View(producto);
+		}
 
         // GET: ProductosController/Edit/5
         public ActionResult Edit(int id)
         {
             var producto = _repositorio.ObtenerPorId(id);
-			if (producto == null)
+			if (producto == null || producto.Id == 0)
 			{
 				return NotFound();
 			}
@@ -69,16 +73,27 @@ namespace GestionComercial.Web.Controllers
         // POST: ProductosController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Producto producto)
         {
-            try
+            var productoExist = _repositorio.ObtenerPorId(id);
+            if (productoExist == null || productoExist.Id == 0)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    _repositorio.Actualizar(producto);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, $"Error al actualizar el Producto: {ex.Message}");
+                }
             }
+            return View(producto);
         }
 
         // GET: ProductosController/Delete/5
@@ -93,12 +108,18 @@ namespace GestionComercial.Web.Controllers
         }
 
         // POST: ProductosController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
+            var producto = _repositorio.ObtenerPorId(id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
             try
             {
+                _repositorio.Eliminar(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

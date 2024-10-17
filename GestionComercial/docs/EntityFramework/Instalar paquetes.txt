@@ -1,0 +1,11 @@
+Instalar los siguiente paquetes con el administrador de paquetes NuGet:
+
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.EntityFrameworkCore.Design
+
+Microsoft.EntityFrameworkCore.SqlServer
+
+
+
+scaffold-DbContext "Data Source=.\sqlexpress;Initial Catalog=GestionComercial;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entidades -Context GestionComercialDbContext -ContextDir Data 
