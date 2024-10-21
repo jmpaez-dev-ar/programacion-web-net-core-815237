@@ -26,7 +26,7 @@ public partial class GestionComercialDbContext : DbContext
 
     public virtual DbSet<Localidad> Localidades { get; set; }
 
-    public virtual DbSet<Pais> Paises { get; set; }
+    public virtual DbSet<Paises> Paises { get; set; }
 
     public virtual DbSet<Pedido> Pedidos { get; set; }
 
@@ -46,6 +46,13 @@ public partial class GestionComercialDbContext : DbContext
     {
         modelBuilder.Entity<Categoria>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Categorias_Id");
+
+            entity.HasIndex(e => e.Codigo, "UQ_Categorias_Codigo").IsUnique();
+
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(10)
+                .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -53,6 +60,12 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<Cliente>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Clientes_Id");
+
+            entity.HasIndex(e => e.DomicilioId, "IX_Clientes_DomicilioId").IsUnique();
+
+            entity.HasIndex(e => e.Codigo, "UQ_Clientes_Codigo").IsUnique();
+
             entity.Property(e => e.Apellido)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -78,8 +91,8 @@ public partial class GestionComercialDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Domicilio).WithMany(p => p.Clientes)
-                .HasForeignKey(d => d.DomicilioId)
+            entity.HasOne(d => d.Domicilio).WithOne(p => p.Cliente)
+                .HasForeignKey<Cliente>(d => d.DomicilioId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Clientes_Domicilios");
 
@@ -90,6 +103,8 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<DetallePedido>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_DetallesPedido_Id");
+
             entity.ToTable("DetallesPedido");
 
             entity.Property(e => e.DescuentoPorcentaje).HasColumnType("decimal(5, 2)");
@@ -100,7 +115,7 @@ public partial class GestionComercialDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DetallesPedido_Pedidos");
 
-            entity.HasOne(d => d.Producto).WithMany(p => p.DetallesPedido)
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetallesPedidos)
                 .HasForeignKey(d => d.ProductoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DetallesPedido_Productos");
@@ -108,6 +123,8 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<Domicilio>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Domicilios_Id");
+
             entity.Property(e => e.Barrio)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -135,6 +152,8 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<Localidad>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Localidades_Id");
+
             entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -145,8 +164,10 @@ public partial class GestionComercialDbContext : DbContext
                 .HasConstraintName("FK_Localidades_Provincias");
         });
 
-        modelBuilder.Entity<Pais>(entity =>
+        modelBuilder.Entity<Paises>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Paises_Id");
+
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -154,24 +175,37 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<Pedido>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Pedidos_Id");
+
+            entity.HasIndex(e => e.DomicilioIdEntrega, "IX_Pedidos_DomicilioId").IsUnique();
+
+            entity.HasIndex(e => e.Numero, "IX_Pedidos_Numero").IsUnique();
+
             entity.HasOne(d => d.Cliente).WithMany(p => p.Pedidos)
                 .HasForeignKey(d => d.ClienteId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Pedido_Clientes");
+                .HasConstraintName("FK_Pedidos_Clientes");
 
-            entity.HasOne(d => d.DomicilioIdEntregaNavigation).WithMany(p => p.Pedidos)
-                .HasForeignKey(d => d.DomicilioIdEntrega)
+            entity.HasOne(d => d.DomicilioIdEntregaNavigation).WithOne(p => p.Pedido)
+                .HasForeignKey<Pedido>(d => d.DomicilioIdEntrega)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Pedidos_Domicilios");
 
             entity.HasOne(d => d.Vendedor).WithMany(p => p.Pedidos)
                 .HasForeignKey(d => d.VendedorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Pedido_Vendedor");
+                .HasConstraintName("FK_Pedidos_Vendedores");
         });
 
         modelBuilder.Entity<Producto>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Productos_Id");
+
+            entity.HasIndex(e => e.Codigo, "UQ_Productos_Codigo").IsUnique();
+
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(10)
+                .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -185,6 +219,8 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<Provincia>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Provincias_Id");
+
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -197,7 +233,11 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<TipoDocumento>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_TiposDocumento_Id");
+
             entity.ToTable("TiposDocumento");
+
+            entity.HasIndex(e => e.Codigo, "UQ_TiposDocumento_Codigo").IsUnique();
 
             entity.Property(e => e.Codigo)
                 .HasMaxLength(10)
@@ -209,7 +249,11 @@ public partial class GestionComercialDbContext : DbContext
 
         modelBuilder.Entity<Vendedor>(entity =>
         {
-            entity.ToTable("Vendedor");
+            entity.HasKey(e => e.Id).HasName("PK_Vendedor_Id");
+
+            entity.HasIndex(e => e.DomicilioId, "IX_Vendedor_DomicilioId").IsUnique();
+
+            entity.HasIndex(e => e.Codigo, "UQ_Vendedor_Codigo").IsUnique();
 
             entity.Property(e => e.Apellido)
                 .HasMaxLength(50)
@@ -230,14 +274,14 @@ public partial class GestionComercialDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Domicilio).WithMany(p => p.Vendedors)
-                .HasForeignKey(d => d.DomicilioId)
+            entity.HasOne(d => d.Domicilio).WithOne(p => p.Vendedore)
+                .HasForeignKey<Vendedor>(d => d.DomicilioId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Vendedor_Domicilios");
+                .HasConstraintName("FK_Vendedores_Domicilios");
 
-            entity.HasOne(d => d.TipoDocumento).WithMany(p => p.Vendedors)
+            entity.HasOne(d => d.TipoDocumento).WithMany(p => p.Vendedores)
                 .HasForeignKey(d => d.TipoDocumentoId)
-                .HasConstraintName("FK_Vendedor_TiposDocumento");
+                .HasConstraintName("FK_Vendedores_TiposDocumento");
         });
 
         OnModelCreatingPartial(modelBuilder);

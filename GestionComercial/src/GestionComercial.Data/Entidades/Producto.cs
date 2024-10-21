@@ -7,6 +7,8 @@ public partial class Producto
 {
     public int Id { get; set; }
 
+    public string Codigo { get; set; } = null!;
+
     public string Nombre { get; set; } = null!;
 
     public decimal PrecioUnitario { get; set; }
@@ -21,5 +23,5 @@ public partial class Producto
 
     public virtual Categoria Categoria { get; set; } = null!;
 
-    public virtual ICollection<DetallePedido> DetallesPedido { get; set; } = new List<DetallePedido>();
+    public virtual ICollection<DetallePedido> DetallesPedidos { get; set; } = new List<DetallePedido>();
 }

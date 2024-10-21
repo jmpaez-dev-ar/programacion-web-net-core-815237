@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GestionComercial.Data.Entidades;
 
-public partial class Pais
+public partial class Paises
 {
     public int Id { get; set; }
 

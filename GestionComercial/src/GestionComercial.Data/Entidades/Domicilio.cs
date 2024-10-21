@@ -25,11 +25,11 @@ public partial class Domicilio
 
     public string? Observacion { get; set; }
 
-    public virtual ICollection<Cliente> Clientes { get; set; } = new List<Cliente>();
+    public virtual Cliente? Cliente { get; set; }
 
     public virtual Localidad? Localidad { get; set; }
 
-    public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
+    public virtual Pedido? Pedido { get; set; }
 
-    public virtual ICollection<Vendedor> Vendedors { get; set; } = new List<Vendedor>();
+    public virtual Vendedor? Vendedore { get; set; }
 }

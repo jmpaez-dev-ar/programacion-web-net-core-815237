@@ -13,5 +13,5 @@ public partial class Provincia
 
     public virtual ICollection<Localidad> Localidades { get; set; } = new List<Localidad>();
 
-    public virtual Pais Pais { get; set; } = null!;
+    public virtual Paises Pais { get; set; } = null!;
 }

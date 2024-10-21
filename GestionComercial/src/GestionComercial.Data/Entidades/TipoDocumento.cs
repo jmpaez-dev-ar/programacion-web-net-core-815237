@@ -13,5 +13,5 @@ public partial class TipoDocumento
 
     public virtual ICollection<Cliente> Clientes { get; set; } = new List<Cliente>();
 
-    public virtual ICollection<Vendedor> Vendedors { get; set; } = new List<Vendedor>();
+    public virtual ICollection<Vendedor> Vendedores { get; set; } = new List<Vendedor>();
 }
