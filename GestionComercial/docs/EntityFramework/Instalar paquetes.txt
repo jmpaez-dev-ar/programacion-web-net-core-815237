@@ -9,3 +9,6 @@ Microsoft.EntityFrameworkCore.SqlServer
 
 
 scaffold-DbContext "Data Source=.\sqlexpress;Initial Catalog=GestionComercial;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entidades -Context GestionComercialDbContext -ContextDir Data 
+
+-- En caso de necesida de forzar la creación nuevamente de los modelos (entidades) usar parámetro -force
+scaffold-DbContext "Data Source=.\sqlexpress;Initial Catalog=GestionComercial;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entidades -Context GestionComercialDbContext -ContextDir Data -force

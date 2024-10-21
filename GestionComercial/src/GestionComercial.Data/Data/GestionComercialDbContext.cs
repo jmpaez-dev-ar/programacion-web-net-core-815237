@@ -115,7 +115,7 @@ public partial class GestionComercialDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DetallesPedido_Pedidos");
 
-            entity.HasOne(d => d.Producto).WithMany(p => p.DetallesPedidos)
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetallesPedido)
                 .HasForeignKey(d => d.ProductoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DetallesPedido_Productos");
