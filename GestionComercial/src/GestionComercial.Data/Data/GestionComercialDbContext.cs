@@ -15,7 +15,6 @@ public partial class GestionComercialDbContext : DbContext
         : base(options)
     {
     }
-
     public virtual DbSet<Categoria> Categorias { get; set; }
 
     public virtual DbSet<Cliente> Clientes { get; set; }
@@ -39,8 +38,9 @@ public partial class GestionComercialDbContext : DbContext
     public virtual DbSet<Vendedor> Vendedores { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=GestionComercial;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True");
+    { }
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//    => optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=GestionComercial;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

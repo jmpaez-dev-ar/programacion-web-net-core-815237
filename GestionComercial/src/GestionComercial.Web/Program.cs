@@ -1,3 +1,4 @@
+using GestionComercial.Data.Data;
 using GestionComercial.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,17 @@ namespace GestionComercial.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var applicationConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(applicationConnectionString));
+
+
+            var gestionComercialConnectionString = builder.Configuration.GetConnectionString("GestionComercialConnection") ?? throw new InvalidOperationException("Connection string 'GestionComercialConnection' not found.");
+            
+            builder.Services.AddDbContext<GestionComercialDbContext>(options =>
+                options.UseSqlServer(gestionComercialConnectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
