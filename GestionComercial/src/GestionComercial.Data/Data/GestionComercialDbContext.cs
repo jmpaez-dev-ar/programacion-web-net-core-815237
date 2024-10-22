@@ -25,7 +25,7 @@ public partial class GestionComercialDbContext : DbContext
 
     public virtual DbSet<Localidad> Localidades { get; set; }
 
-    public virtual DbSet<Paises> Paises { get; set; }
+    public virtual DbSet<Pais> Paises { get; set; }
 
     public virtual DbSet<Pedido> Pedidos { get; set; }
 
@@ -164,7 +164,7 @@ public partial class GestionComercialDbContext : DbContext
                 .HasConstraintName("FK_Localidades_Provincias");
         });
 
-        modelBuilder.Entity<Paises>(entity =>
+        modelBuilder.Entity<Pais>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Paises_Id");
 

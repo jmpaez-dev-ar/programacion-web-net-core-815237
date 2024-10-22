@@ -1,7 +1,6 @@
 ﻿using GestionComercial.Data.Data;
 using GestionComercial.Data.Repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace GestionComercial.Data.Repositorios

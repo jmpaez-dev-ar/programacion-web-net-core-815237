@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GestionComercial.Data.Entidades;
 
-public partial class Paises
+public partial class Pais
 {
     public int Id { get; set; }
 
