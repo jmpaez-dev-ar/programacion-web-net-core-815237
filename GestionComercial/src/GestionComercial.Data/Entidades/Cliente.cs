@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GestionComercial.Data.Entidades;
 
@@ -27,6 +28,9 @@ public partial class Cliente
 
     public int? NumeroDocumento { get; set; }
 
+    [StringLength(13)]
+    [Display(Name = "CUIT/CUIL")]
+    [RegularExpression(@"^\d{2}-\d{8}-\d{1}$|^$", ErrorMessage = "El campo Cuit/Cuil debe tener el formato XX-XXXXXXXX-X o estar vacío")]
     public string? CuitCuil { get; set; }
 
     public int DomicilioId { get; set; }
