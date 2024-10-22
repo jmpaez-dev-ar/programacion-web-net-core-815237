@@ -274,7 +274,7 @@ public partial class GestionComercialDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Domicilio).WithOne(p => p.Vendedore)
+            entity.HasOne(d => d.Domicilio).WithOne(p => p.Vendedor)
                 .HasForeignKey<Vendedor>(d => d.DomicilioId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Vendedores_Domicilios");
