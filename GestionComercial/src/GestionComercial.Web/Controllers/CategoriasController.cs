@@ -1,5 +1,7 @@
 ﻿using GestionComercial.Data.Data;
 using GestionComercial.Data.Entidades;
+using GestionComercial.Data.Repositorios;
+using GestionComercial.Data.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,17 +9,18 @@ namespace GestionComercial.Web.Controllers
 {
     public class CategoriasController : Controller
     {
-        private readonly GestionComercialDbContext _context;
+        private readonly ICategoriaRepositorio _categoriaRepositorio;
 
-        public CategoriasController(GestionComercialDbContext context)
+        public CategoriasController(ICategoriaRepositorio categoriaRepositorio)
         {
-            _context = context;
+            _categoriaRepositorio = categoriaRepositorio;
         }
 
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorias.ToListAsync());
+            var categorias = await _categoriaRepositorio.ObtenerTodosAsync();
+            return View(categorias);
         }
 
         // GET: Categorias/Details/5
@@ -28,8 +31,7 @@ namespace GestionComercial.Web.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var categoria = await _categoriaRepositorio.ObtenerPorIdAsync(id.Value);
             if (categoria == null)
             {
                 return NotFound();
@@ -53,8 +55,8 @@ namespace GestionComercial.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
-                await _context.SaveChangesAsync();
+                _categoriaRepositorio.CrearAsync(categoria);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
@@ -68,7 +70,7 @@ namespace GestionComercial.Web.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias.FindAsync(id);
+            var categoria = await _categoriaRepositorio.ObtenerPorIdAsync(id.Value);  
             if (categoria == null)
             {
                 return NotFound();
@@ -92,8 +94,8 @@ namespace GestionComercial.Web.Controllers
             {
                 try
                 {
-                    _context.Update(categoria);
-                    await _context.SaveChangesAsync();
+                    _categoriaRepositorio.ActualizarAsync(categoria);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,8 +121,7 @@ namespace GestionComercial.Web.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var categoria = await _categoriaRepositorio.ObtenerPorIdAsync(id.Value); 
             if (categoria == null)
             {
                 return NotFound();
@@ -134,19 +135,18 @@ namespace GestionComercial.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.Categorias.FindAsync(id);
+            var categoria = await _categoriaRepositorio.ObtenerPorIdAsync(id); 
             if (categoria != null)
             {
-                _context.Categorias.Remove(categoria);
+                await _categoriaRepositorio.EliminarAsync(categoria);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoriaExists(int id)
         {
-            return _context.Categorias.Any(e => e.Id == id);
+            var categoria = _categoriaRepositorio.ObtenerPorIdAsync(id);
+            return categoria != null;
         }
     }
 }

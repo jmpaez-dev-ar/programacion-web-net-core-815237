@@ -1,4 +1,6 @@
 using GestionComercial.Data.Data;
+using GestionComercial.Data.Repositorios;
+using GestionComercial.Data.Repositorios.Interfaces;
 using GestionComercial.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,10 @@ namespace GestionComercial.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configurar Log4Net
+            builder.Logging.ClearProviders();
+            builder.Logging.AddLog4Net("log4net.config");
+
             // Add services to the container.
             var applicationConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -22,6 +28,10 @@ namespace GestionComercial.Web
             
             builder.Services.AddDbContext<GestionComercialDbContext>(options =>
                 options.UseSqlServer(gestionComercialConnectionString));
+
+            // Registro de los repositorios en el contenedor de servicios
+            builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
